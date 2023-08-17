@@ -16,7 +16,7 @@ object IntcodeComputer {
       )
     )
 
-  private def readProgramFromFile(src: Source): Program = src.mkString
+  def readProgramFromFile(src: Source): Program = src.mkString
     .filterNot(_.isWhitespace)
     .trim
     .split(',')
@@ -37,6 +37,8 @@ class IntcodeComputer(val program: Array[Long]) extends Cloneable {
     computer.rb = rb
     computer
   }
+
+  def run: List[Long] => Result = execute(waitForInputs = true)(_)
 
   def execute(waitForInputs: Boolean = false)(
       inputs: List[Long] = List.empty

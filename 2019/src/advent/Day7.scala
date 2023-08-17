@@ -28,7 +28,7 @@ object Day7 extends Day[Long] {
   ): Result = {
     val ps = perm
       .map { phase =>
-        process.clone().execute(waitForInputs = true)(phase :: Nil)
+        process.clone().run(phase :: Nil)
       }
       .collect { case Continue(process) => process }
       .toArray
@@ -39,7 +39,7 @@ object Day7 extends Day[Long] {
       val currIdx = i % ps.length
       val prevProc = ps((ps.length + i - 1) % ps.length)
       val inputs = if (i == 0) 0L :: prevProc.outputs else prevProc.outputs
-      ps(currIdx).clone().execute(waitForInputs = true)(inputs) match {
+      ps(currIdx).clone().run(inputs) match {
         case Continue(process) =>
           ps(currIdx) = process
           i += 1
