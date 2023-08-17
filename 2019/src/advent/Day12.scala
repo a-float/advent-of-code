@@ -11,7 +11,7 @@ case class Planet(pos: Vector3, vel: Vector3) {
   def getAxisHash(idx: Int): String =
     pos.toList(idx) + ":" + vel.toList(idx)
 }
-object Puzzle12 extends Puzzle[BigInt] {
+object Day12 extends Day[BigInt] {
 
   private type SystemState = List[Planet]
   override val day: Int = 12

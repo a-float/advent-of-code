@@ -2,7 +2,7 @@ package advent
 import scala.io.{BufferedSource, Source}
 import scala.util.{Failure, Success, Try}
 
-object Puzzle2 extends Puzzle[Try[Int]] {
+object Day2 extends Day[Try[Int]] {
   private type Program = Array[Int]
   override val day: Int = 2
 

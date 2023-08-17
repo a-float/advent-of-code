@@ -2,7 +2,7 @@ package advent
 import scala.annotation.tailrec
 import scala.io.{BufferedSource, Source}
 
-object Puzzle6 extends Puzzle[Int] {
+object Day6 extends Day[Int] {
   private type Vertex = String
   private type Graph = Map[Vertex, Vertex]
   override val day: Int = 6

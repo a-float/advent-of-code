@@ -3,7 +3,7 @@ package advent
 import scala.io.{BufferedSource, Source}
 import scala.language.implicitConversions
 
-object Puzzle8 extends Puzzle[String] {
+object Day8 extends Day[String] {
   override val day: Int = 8
   private val layerSize = 25 * 6
   def main(args: Array[String]): Unit = {

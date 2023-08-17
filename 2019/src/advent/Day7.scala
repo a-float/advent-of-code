@@ -4,7 +4,7 @@ import advent.intcode._
 
 import scala.io.{BufferedSource, Source}
 
-object Puzzle7 extends Puzzle[Long] {
+object Day7 extends Day[Long] {
   override val day: Int = 7
   private val startInput = 0
 

@@ -1,7 +1,7 @@
 package advent
 import scala.io.{BufferedSource, Source}
 
-object Puzzle4 extends Puzzle[Int] {
+object Day4 extends Day[Int] {
   override val day: Int = 4
 
   def main(args: Array[String]): Unit = {

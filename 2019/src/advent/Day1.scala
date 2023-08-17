@@ -2,7 +2,7 @@ package advent
 import scala.annotation.tailrec
 import scala.io.Source
 
-object Puzzle1 extends Puzzle[Int] {
+object Day1 extends Day[Int] {
   override val day: Int = 1
 
   def main(args: Array[String]): Unit = {

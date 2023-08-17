@@ -1,7 +1,7 @@
 package advent
 import scala.annotation.tailrec
 import scala.io.{BufferedSource, Source}
-object Puzzle3 extends Puzzle[Int] {
+object Day3 extends Day[Int] {
   private type Wire = Map[Point, Int]
   override val day: Int = 3
 
