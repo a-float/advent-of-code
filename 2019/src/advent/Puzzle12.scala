@@ -1,7 +1,7 @@
 package advent
 
 import scala.annotation.tailrec
-import scala.io.Source
+import scala.io.{BufferedSource, Source}
 import scala.language.implicitConversions
 import scala.util.matching.Regex
 
@@ -18,7 +18,7 @@ object Puzzle12 extends Puzzle[BigInt] {
   private val positionRegex: Regex = "(\\w+)=(-?\\d+)".r
 
   def main(args: Array[String]): Unit = {
-    val src = Source.fromResource("data12.txt")
+    def src: BufferedSource = Source.fromResource("data12.txt")
     println(part1(src))
     println(part2(src))
   }

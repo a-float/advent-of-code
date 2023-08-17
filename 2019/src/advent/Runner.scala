@@ -1,6 +1,6 @@
 package advent
 
-import scala.io.Source
+import scala.io.{BufferedSource, Source}
 
 object Runner {
   def main(args: Array[String]): Unit = {
@@ -19,7 +19,7 @@ object Runner {
     val totalTime = puzzles
       .sortBy(_.day)
       .map(puzzle => {
-        def src = Source.fromResource(s"data${puzzle.day}.txt")
+        def src: BufferedSource = Source.fromResource(s"data${puzzle.day}.txt")
         println(s"Day ${puzzle.day}: ")
         val (res1, time1) = Utils.time {
           puzzle.part1(src)

@@ -1,13 +1,13 @@
 package advent
 
-import scala.io.Source
+import scala.io.{BufferedSource, Source}
 import scala.language.implicitConversions
 
 object Puzzle8 extends Puzzle[String] {
   override val day: Int = 8
   private val layerSize = 25 * 6
   def main(args: Array[String]): Unit = {
-    val src = Source.fromResource("data8.txt")
+    def src: BufferedSource = Source.fromResource("data8.txt")
     println(part1(src))
     println(part2(src))
   }

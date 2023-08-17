@@ -2,22 +2,22 @@ package advent
 
 import advent.intcode._
 
-import scala.io.Source
+import scala.io.{BufferedSource, Source}
 
-object Puzzle7 extends Puzzle[Int] {
+object Puzzle7 extends Puzzle[Long] {
   override val day: Int = 7
   private val startInput = 0
 
   def main(args: Array[String]): Unit = {
-    val src = Source.fromResource("data7.txt")
+    def src: BufferedSource = Source.fromResource("data7.txt")
     println(part1(src))
     println(part2(src))
   }
 
-  def part2(src: Source): Int = {
+  def part2(src: Source): Long = {
     val program = getProgram(src)
     (5 to 9).permutations
-      .map((perm: IndexedSeq[Int]) => findMaxSignal(program, perm))
+      .map(findMaxSignal(program, _))
       .collect { case Success(value) => value }
       .max
   }
@@ -38,7 +38,7 @@ object Puzzle7 extends Puzzle[Int] {
     while (i < MAX_ITER) {
       val currIdx = i % ps.length
       val prevProc = ps((ps.length + i - 1) % ps.length)
-      val inputs = if (i == 0) 0 :: prevProc.outputs else prevProc.outputs
+      val inputs = if (i == 0) 0L :: prevProc.outputs else prevProc.outputs
       ps(currIdx).clone().execute(waitForInputs = true)(inputs) match {
         case Continue(process) =>
           ps(currIdx) = process
@@ -56,7 +56,7 @@ object Puzzle7 extends Puzzle[Int] {
   private def getProgram(src: Source): IntcodeComputer =
     IntcodeComputer.loadProgram(src)
 
-  def part1(src: Source): Int = {
+  def part1(src: Source): Long = {
     val process = getProgram(src)
     (0 to 4).permutations
       .map(perm =>

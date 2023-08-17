@@ -1,6 +1,6 @@
 package advent
 import scala.annotation.tailrec
-import scala.io.Source
+import scala.io.{BufferedSource, Source}
 
 object Puzzle6 extends Puzzle[Int] {
   private type Vertex = String
@@ -8,7 +8,7 @@ object Puzzle6 extends Puzzle[Int] {
   override val day: Int = 6
 
   def main(args: Array[String]): Unit = {
-    val src = Source.fromResource("data6.txt")
+    def src: BufferedSource = Source.fromResource("data6.txt")
     println(part1(src))
     println(part2(src))
   }

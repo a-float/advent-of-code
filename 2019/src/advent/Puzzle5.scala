@@ -1,13 +1,13 @@
 package advent
 import advent.intcode.{IntcodeComputer, Result}
 
-import scala.io.Source
+import scala.io.{BufferedSource, Source}
 
 object Puzzle5 extends Puzzle[Result] {
   override val day: Int = 5
 
   def main(args: Array[String]): Unit = {
-    val src = Source.fromResource("data5.txt")
+    def src: BufferedSource = Source.fromResource("data5.txt")
     println(part1(src))
     println(part2(src))
   }

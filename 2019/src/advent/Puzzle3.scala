@@ -1,12 +1,12 @@
 package advent
 import scala.annotation.tailrec
-import scala.io.Source
+import scala.io.{BufferedSource, Source}
 object Puzzle3 extends Puzzle[Int] {
   private type Wire = Map[Point, Int]
   override val day: Int = 3
 
   def main(args: Array[String]): Unit = {
-    val src = Source.fromResource("data3.txt")
+    def src: BufferedSource = Source.fromResource("data3.txt")
     println(part1(src))
     println(part2(src))
   }

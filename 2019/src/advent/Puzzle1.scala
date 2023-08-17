@@ -6,7 +6,7 @@ object Puzzle1 extends Puzzle[Int] {
   override val day: Int = 1
 
   def main(args: Array[String]): Unit = {
-    val src = Source.fromResource("data1.txt")
+    def src = Source.fromResource("data1.txt")
     println(part1(src))
     println(part2(src))
   }

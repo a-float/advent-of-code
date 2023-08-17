@@ -1,11 +1,11 @@
 package advent
-import scala.io.Source
+import scala.io.{BufferedSource, Source}
 
 object Puzzle4 extends Puzzle[Int] {
   override val day: Int = 4
 
   def main(args: Array[String]): Unit = {
-    val src = Source.fromResource("data4.txt")
+    def src: BufferedSource = Source.fromResource("data4.txt")
     println(part1(src))
     println(part2(src))
   }

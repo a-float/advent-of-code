@@ -1,5 +1,5 @@
 package advent
-import scala.io.Source
+import scala.io.{BufferedSource, Source}
 import scala.util.{Failure, Success, Try}
 
 object Puzzle2 extends Puzzle[Try[Int]] {
@@ -7,7 +7,7 @@ object Puzzle2 extends Puzzle[Try[Int]] {
   override val day: Int = 2
 
   def main(args: Array[String]): Unit = {
-    val src = Source.fromResource("data2.txt")
+    def src: BufferedSource = Source.fromResource("data2.txt")
     println(part1(src))
     println(part2(src))
   }
