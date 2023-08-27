@@ -1,7 +1,5 @@
 package advent
 
-import scala.io.{BufferedSource, Source}
-
 object Runner {
   def main(args: Array[String]): Unit = {
     // format: off
@@ -10,15 +8,14 @@ object Runner {
     val totalTime = days
       .sortBy(_.day)
       .map(day => {
-        def src: BufferedSource = Source.fromResource(s"data${day.day}.txt")
         println(s"Day ${day.day}: ")
         val (res1, time1) = Utils.time {
-          day.part1(src)
+          day.part1()
         }
         println(s"  Part 1: ${time1 / 1e6}ms - $res1")
 
         val (res2, time2) = Utils.time {
-          day.part2(src)
+          day.part2()
         }
         println(s"  Part 2: ${time2 / 1e6}ms - $res2")
         time1 + time2

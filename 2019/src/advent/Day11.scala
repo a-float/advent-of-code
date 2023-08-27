@@ -3,19 +3,29 @@ package advent
 import advent.intcode.{Continue, IntcodeComputer, Success}
 
 import scala.collection.mutable
-import scala.io.{BufferedSource, Source}
 
 object Day11 extends Day[String] {
   override val day: Int = 11
 
   def main(args: Array[String]): Unit = {
-    def src: BufferedSource = Source.fromResource("data11.txt")
-    println(part1(src))
-    println(part2(src))
+    println(part1())
+    println(part2())
   }
 
-  override def part1(src: Source): String =
-    paint(IntcodeComputer.readProgramFromFile(src), 0).size.toString
+  override def part1(): String =
+    paint(IntcodeComputer.readProgramFromFile(getSource), 0).size.toString
+
+  override def part2(): String = {
+    val map = paint(IntcodeComputer.readProgramFromFile(getSource), 1)
+    val bounds = Utils.getMapBounds(map)
+    (bounds.yMin to bounds.yMax)
+      .map(y =>
+        (bounds.xMin to bounds.xMax)
+          .map(x => if (map.getOrElse(Point(x, y), 0) == 0) " " else "#")
+          .mkString
+      )
+      .mkString("\n", "\n", "")
+  }
 
   private def paint(
       program: Array[Long],
@@ -46,17 +56,5 @@ object Day11 extends Day[String] {
       }
     }
     map.toMap
-  }
-
-  override def part2(src: Source): String = {
-    val map = paint(IntcodeComputer.readProgramFromFile(src), 1)
-    val bounds= Utils.getMapBounds(map)
-    (bounds.yMin to bounds.yMax)
-      .map(y =>
-        (bounds.xMin to bounds.xMax)
-          .map(x => if (map.getOrElse(Point(x, y), 0) == 0) " " else "#")
-          .mkString
-      )
-      .mkString("\n", "\n", "")
   }
 }

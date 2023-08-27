@@ -1,15 +1,33 @@
 package advent
 import scala.annotation.tailrec
-import scala.io.{BufferedSource, Source}
+import scala.io.Source
 object Day3 extends Day[Int] {
   private type Wire = Map[Point, Int]
   override val day: Int = 3
 
   def main(args: Array[String]): Unit = {
-    def src: BufferedSource = Source.fromResource("data3.txt")
-    println(part1(src))
-    println(part2(src))
+    println(part1())
+    println(part2())
   }
+
+  def part1(): Int = {
+    val cables = getWires(getSource)
+    cables._1.keySet
+      .intersect(cables._2.keySet)
+      .map(_.manhattan)
+      .filter(_ > 0)
+      .min
+  }
+
+  def part2(): Int = {
+    val cables = getWires(getSource)
+    cables._1.keySet
+      .intersect(cables._2.keySet)
+      .map(p => cables._1.getOrElse(p, 0) + cables._2.getOrElse(p, 0))
+      .filter(_ > 0)
+      .min
+  }
+
   private def getWires(src: Source): (Wire, Wire) = {
     val list = src
       .getLines()
@@ -23,24 +41,6 @@ object Day3 extends Day[Int] {
       cableReducer(Map.empty[Point, Int], list.head),
       cableReducer(Map.empty[Point, Int], list(1))
     )
-  }
-
-  def part1(src: Source): Int = {
-    val cables = getWires(src)
-    cables._1.keySet
-      .intersect(cables._2.keySet)
-      .map(_.manhattan)
-      .filter(_ > 0)
-      .min
-  }
-
-  def part2(src: Source): Int = {
-    val cables = getWires(src)
-    cables._1.keySet
-      .intersect(cables._2.keySet)
-      .map(p => cables._1.getOrElse(p, 0) + cables._2.getOrElse(p, 0))
-      .filter(_ > 0)
-      .min
   }
 
   @tailrec

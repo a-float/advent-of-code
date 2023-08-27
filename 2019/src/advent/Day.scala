@@ -1,9 +1,10 @@
 package advent
 
-import scala.io.Source
+import scala.io.{BufferedSource, Source}
 
 trait Day[O] {
   val day: Int
-  def part1(src: Source): O
-  def part2(src: Source): O
+  def getSource: BufferedSource = Source.fromResource(s"data$day.txt")
+  def part1(): O
+  def part2(): O
 }

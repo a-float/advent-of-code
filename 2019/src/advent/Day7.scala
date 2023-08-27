@@ -2,20 +2,19 @@ package advent
 
 import advent.intcode._
 
-import scala.io.{BufferedSource, Source}
+import scala.io.Source
 
 object Day7 extends Day[Long] {
   override val day: Int = 7
   private val startInput = 0
 
   def main(args: Array[String]): Unit = {
-    def src: BufferedSource = Source.fromResource("data7.txt")
-    println(part1(src))
-    println(part2(src))
+    println(part1())
+    println(part2())
   }
 
-  def part2(src: Source): Long = {
-    val program = getProgram(src)
+  def part2(): Long = {
+    val program = getProgram(getSource)
     (5 to 9).permutations
       .map(findMaxSignal(program, _))
       .collect { case Success(value) => value }
@@ -53,11 +52,8 @@ object Day7 extends Day[Long] {
     throw new Error(s"Unable to determine signal in $MAX_ITER iterations")
   }
 
-  private def getProgram(src: Source): IntcodeComputer =
-    IntcodeComputer.loadProgram(src)
-
-  def part1(src: Source): Long = {
-    val process = getProgram(src)
+  def part1(): Long = {
+    val process = getProgram(getSource)
     (0 to 4).permutations
       .map(perm =>
         perm.foldLeft((x: Result) => x)((acc: Result => Result, phase: Int) =>
@@ -73,5 +69,8 @@ object Day7 extends Day[Long] {
       .collect { case Success(signal) => signal }
       .max
   }
+
+  private def getProgram(src: Source): IntcodeComputer =
+    IntcodeComputer.loadProgram(src)
 
 }

@@ -2,27 +2,24 @@ package advent
 
 import advent.intcode.{Continue, IntcodeComputer, Success}
 
-import scala.io.{BufferedSource, Source}
-
 object Day13 extends Day[String] {
   override val day: Int = 13
 
   def main(args: Array[String]): Unit = {
-    def src: BufferedSource = Source.fromResource("data13.txt")
-    println(part1(src))
-    println(part2(src))
+    println(part1())
+    println(part2())
   }
 
-  override def part1(src: Source): String = {
-    val intcode = IntcodeComputer.loadProgram(src)
+  override def part1(): String = {
+    val intcode = IntcodeComputer.loadProgram(getSource)
     intcode.run(List.empty)
     intcode.outputs
       .grouped(3)
       .count(x => x(2) == 2)
       .toString
   }
-  override def part2(src: Source): String = {
-    val program = IntcodeComputer.readProgramFromFile(src)
+  override def part2(): String = {
+    val program = IntcodeComputer.readProgramFromFile(getSource)
     program(0) = 2
     val intcode = new IntcodeComputer(program)
     var result = intcode.run(0 :: Nil)

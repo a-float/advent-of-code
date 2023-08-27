@@ -1,19 +1,18 @@
 package advent
-import scala.io.{BufferedSource, Source}
+import scala.io.Source
 
 object Day10 extends Day[Int] {
   override val day: Int = 10
 
   def main(args: Array[String]): Unit = {
-    def src: BufferedSource = Source.fromResource("data10.txt")
-    println(part1(src))
-    println(part2(src))
+    println(part1())
+    println(part2())
   }
 
-  def part1(src: Source): Int = getBestLocation(getSpaceMap(src))._2
+  def part1(): Int = getBestLocation(getSpaceMap(getSource))._2
 
-  def part2(src: Source): Int = {
-    val spaceMap = getSpaceMap(src)
+  def part2(): Int = {
+    val spaceMap = getSpaceMap(getSource)
     val spot = getBestLocation(spaceMap)._1
     val asteroid = laserSort(spot, spaceMap)(199)
     asteroid.x * 100 + asteroid.y

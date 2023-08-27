@@ -1,7 +1,7 @@
 package advent
 
 import scala.annotation.tailrec
-import scala.io.{BufferedSource, Source}
+import scala.io.Source
 import scala.language.implicitConversions
 import scala.util.matching.Regex
 
@@ -18,18 +18,17 @@ object Day12 extends Day[BigInt] {
   private val positionRegex: Regex = "(\\w+)=(-?\\d+)".r
 
   def main(args: Array[String]): Unit = {
-    def src: BufferedSource = Source.fromResource("data12.txt")
-    println(part1(src))
-    println(part2(src))
+    println(part1())
+    println(part2())
   }
   private implicit def toVec3(list: List[Int]): Vector3 =
     Vector3(list.head, list(1), list(2))
 
-  def part1(src: Source): BigInt =
-    manySteps(getStartingState(src), 1000).map(_.getEnergy).sum
+  def part1(): BigInt =
+    manySteps(getStartingState(getSource), 1000).map(_.getEnergy).sum
 
-  def part2(src: Source): BigInt =
-    lcm((0 to 2).map(getAxisCycle(getStartingState(src), _)))
+  def part2(): BigInt =
+    lcm((0 to 2).map(getAxisCycle(getStartingState(getSource), _)))
 
   private def getStartingState(src: Source): List[Planet] = {
     val input = src.getLines().mkString

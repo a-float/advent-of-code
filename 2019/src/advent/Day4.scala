@@ -1,17 +1,16 @@
 package advent
-import scala.io.{BufferedSource, Source}
+import scala.io.Source
 
 object Day4 extends Day[Int] {
   override val day: Int = 4
 
   def main(args: Array[String]): Unit = {
-    def src: BufferedSource = Source.fromResource("data4.txt")
-    println(part1(src))
-    println(part2(src))
+    println(part1())
+    println(part2())
   }
 
-  def part1(src: Source): Int =
-    getPasswords(src).map(_.toString).count(isValid1)
+  def part1(): Int =
+    getPasswords(getSource).map(_.toString).count(isValid1)
 
   private def isValid1(pass: String): Boolean = {
     val (iter1, iter2) = pass.sliding(2).duplicate
@@ -19,13 +18,13 @@ object Day4 extends Day[Int] {
     iter2.exists(p => p(0) == p(1))
   }
 
-  def part2(src: Source): Int =
-    getPasswords(src).map(_.toString).count(isValid2)
-
   private def getPasswords(src: Source): Range.Inclusive = {
     val ints = src.mkString.trim.split(" ").map(_.toInt)
     ints(0) to ints(1)
   }
+
+  def part2(): Int =
+    getPasswords(getSource).map(_.toString).count(isValid2)
 
   private def isValid2(pass: String): Boolean = {
     val (iter1, iter2) = pass.sliding(2).duplicate

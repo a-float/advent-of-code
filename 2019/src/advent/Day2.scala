@@ -1,5 +1,5 @@
 package advent
-import scala.io.{BufferedSource, Source}
+import scala.io.Source
 import scala.util.{Failure, Success, Try}
 
 object Day2 extends Day[Try[Int]] {
@@ -7,15 +7,14 @@ object Day2 extends Day[Try[Int]] {
   override val day: Int = 2
 
   def main(args: Array[String]): Unit = {
-    def src: BufferedSource = Source.fromResource("data2.txt")
-    println(part1(src))
-    println(part2(src))
+    println(part1())
+    println(part2())
   }
 
-  def part1(src: Source): Try[Int] = execute(getProgram(src).clone, 12, 2)
+  def part1(): Try[Int] = execute(getProgram(getSource).clone, 12, 2)
 
-  def part2(src: Source): Try[Int] =
-    bruteforce(getProgram(src), 0, 99, 19690720)
+  def part2(): Try[Int] =
+    bruteforce(getProgram(getSource), 0, 99, 19690720)
 
   private def getProgram(src: Source): Program = src.mkString.trim
     .split(',')
