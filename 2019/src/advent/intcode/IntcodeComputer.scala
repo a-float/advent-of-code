@@ -142,6 +142,8 @@ class IntcodeComputer(val program: Array[Long]) extends Cloneable {
       }
   }
 
+  def clearOutputs(): Unit = _outputs.clear()
+
   def outputs: List[Long] = _outputs.toList
 
   def outputs_=(newOutputs: List[Long]): Unit = {

@@ -17,27 +17,6 @@ object Day11 extends Day[String] {
   override def part1(src: Source): String =
     paint(IntcodeComputer.readProgramFromFile(src), 0).size.toString
 
-  override def part2(src: Source): String = {
-    val map = paint(IntcodeComputer.readProgramFromFile(src), 1)
-    val (xMin, xMax, yMin, yMax) =
-      map.keys
-        .foldLeft((0, 0, 0, 0))((acc, point) =>
-          Tuple4(
-            Math.min(acc._1, point.x),
-            Math.max(acc._2, point.x),
-            Math.min(acc._3, point.y),
-            Math.max(acc._4, point.y)
-          )
-        )
-    (yMin to yMax)
-      .map(y =>
-        (xMin to xMax)
-          .map(x => if (map.getOrElse(Point(x, y), 0) == 0) " " else "#")
-          .mkString
-      )
-      .mkString("\n", "\n", "")
-  }
-
   private def paint(
       program: Array[Long],
       startTileColor: Int
@@ -67,5 +46,17 @@ object Day11 extends Day[String] {
       }
     }
     map.toMap
+  }
+
+  override def part2(src: Source): String = {
+    val map = paint(IntcodeComputer.readProgramFromFile(src), 1)
+    val bounds= Utils.getMapBounds(map)
+    (bounds.yMin to bounds.yMax)
+      .map(y =>
+        (bounds.xMin to bounds.xMax)
+          .map(x => if (map.getOrElse(Point(x, y), 0) == 0) " " else "#")
+          .mkString
+      )
+      .mkString("\n", "\n", "")
   }
 }

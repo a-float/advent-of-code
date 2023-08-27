@@ -37,6 +37,16 @@ case class Point(x: Int, y: Int) {
   }
 }
 object Utils {
+  def getMapBounds(map: Map[Point, Int]): Bounds = map.keys
+    .foldLeft(Bounds(0, 0, 0, 0))((acc, point) =>
+      Bounds(
+        Math.min(acc.xMin, point.x),
+        Math.max(acc.xMax, point.x),
+        Math.min(acc.yMin, point.y),
+        Math.max(acc.yMax, point.y)
+      )
+    )
+
   def time[R](block: => R): (R, Long) = {
     val t0 = System.nanoTime()
     val result = block // call-by-name
@@ -44,4 +54,6 @@ object Utils {
 //    println("Elapsed time: " + (t1 - t0) / 1e6 + "ms")
     (result, t1 - t0)
   }
+
+  case class Bounds(xMin: Int, xMax: Int, yMin: Int, yMax: Int)
 }
