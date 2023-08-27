@@ -4,11 +4,6 @@ import scala.io.Source
 object Day10 extends Day[Int] {
   override val day: Int = 10
 
-  def main(args: Array[String]): Unit = {
-    println(part1())
-    println(part2())
-  }
-
   def part1(): Int = getBestLocation(getSpaceMap(getSource))._2
 
   def part2(): Int = {

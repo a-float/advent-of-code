@@ -5,11 +5,6 @@ import scala.io.Source
 object Day14 extends Day[String] {
   override val day: Int = 14
 
-  def main(args: Array[String]): Unit = {
-    println(part1())
-    println(part2())
-  }
-
   override def part1(): String = {
     val recipes = parseInput(getSource)
     toRaw(Chemical("FUEL", 1), recipes).toString

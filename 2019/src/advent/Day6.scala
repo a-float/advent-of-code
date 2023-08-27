@@ -7,11 +7,6 @@ object Day6 extends Day[Int] {
   private type Graph = Map[Vertex, Vertex]
   override val day: Int = 6
 
-  def main(args: Array[String]): Unit = {
-    println(part1())
-    println(part2())
-  }
-
   def part1(): Int = {
     val graph = getGraph(getSource)
     graph.keys.toList.map(getOrbitPath(graph, _).size).sum

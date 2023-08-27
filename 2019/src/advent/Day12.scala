@@ -17,10 +17,6 @@ object Day12 extends Day[BigInt] {
   override val day: Int = 12
   private val positionRegex: Regex = "(\\w+)=(-?\\d+)".r
 
-  def main(args: Array[String]): Unit = {
-    println(part1())
-    println(part2())
-  }
   private implicit def toVec3(list: List[Int]): Vector3 =
     Vector3(list.head, list(1), list(2))
 

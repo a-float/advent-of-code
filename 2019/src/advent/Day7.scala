@@ -8,11 +8,6 @@ object Day7 extends Day[Long] {
   override val day: Int = 7
   private val startInput = 0
 
-  def main(args: Array[String]): Unit = {
-    println(part1())
-    println(part2())
-  }
-
   def part2(): Long = {
     val program = getProgram(getSource)
     (5 to 9).permutations
@@ -52,6 +47,9 @@ object Day7 extends Day[Long] {
     throw new Error(s"Unable to determine signal in $MAX_ITER iterations")
   }
 
+  private def getProgram(src: Source): IntcodeComputer =
+    IntcodeComputer.loadProgram(src)
+
   def part1(): Long = {
     val process = getProgram(getSource)
     (0 to 4).permutations
@@ -69,8 +67,5 @@ object Day7 extends Day[Long] {
       .collect { case Success(signal) => signal }
       .max
   }
-
-  private def getProgram(src: Source): IntcodeComputer =
-    IntcodeComputer.loadProgram(src)
 
 }

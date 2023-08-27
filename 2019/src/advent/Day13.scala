@@ -5,11 +5,6 @@ import advent.intcode.{Continue, IntcodeComputer, Success}
 object Day13 extends Day[String] {
   override val day: Int = 13
 
-  def main(args: Array[String]): Unit = {
-    println(part1())
-    println(part2())
-  }
-
   override def part1(): String = {
     val intcode = IntcodeComputer.loadProgram(getSource)
     intcode.run(List.empty)

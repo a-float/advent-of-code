@@ -4,11 +4,6 @@ import scala.io.Source
 object Day4 extends Day[Int] {
   override val day: Int = 4
 
-  def main(args: Array[String]): Unit = {
-    println(part1())
-    println(part2())
-  }
-
   def part1(): Int =
     getPasswords(getSource).map(_.toString).count(isValid1)
 

@@ -6,11 +6,6 @@ object Day2 extends Day[Try[Int]] {
   private type Program = Array[Int]
   override val day: Int = 2
 
-  def main(args: Array[String]): Unit = {
-    println(part1())
-    println(part2())
-  }
-
   def part1(): Try[Int] = execute(getProgram(getSource).clone, 12, 2)
 
   def part2(): Try[Int] =

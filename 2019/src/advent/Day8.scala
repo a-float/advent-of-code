@@ -6,10 +6,6 @@ import scala.language.implicitConversions
 object Day8 extends Day[String] {
   override val day: Int = 8
   private val layerSize = 25 * 6
-  def main(args: Array[String]): Unit = {
-    println(part1())
-    println(part2())
-  }
 
   def part1(): String = getLayers(getSource)
     .map(l => (l.count(_ == '0'), l.count(_ == '1') * l.count(_ == '2')))

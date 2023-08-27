@@ -5,11 +5,6 @@ object Day3 extends Day[Int] {
   private type Wire = Map[Point, Int]
   override val day: Int = 3
 
-  def main(args: Array[String]): Unit = {
-    println(part1())
-    println(part2())
-  }
-
   def part1(): Int = {
     val cables = getWires(getSource)
     cables._1.keySet
