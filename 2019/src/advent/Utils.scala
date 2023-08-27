@@ -37,7 +37,7 @@ case class Point(x: Int, y: Int) {
   }
 }
 object Utils {
-  def getMapBounds(map: Map[Point, Int]): Bounds = map.keys
+  def getMapBounds(map: Map[Point, Any]): Bounds = map.keys
     .foldLeft(Bounds(0, 0, 0, 0))((acc, point) =>
       Bounds(
         Math.min(acc.xMin, point.x),
