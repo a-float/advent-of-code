@@ -47,11 +47,15 @@ object Utils {
       )
     )
 
-  def time[R](block: => R): (R, Long) = {
+  def time[R](block: => R): R = {
+    val (result, time) = measure(block)
+    println("Elapsed time: " + time / 1e6 + "ms")
+    result
+  }
+  def measure[R](block: => R): (R, Long) = {
     val t0 = System.nanoTime()
     val result = block // call-by-name
     val t1 = System.nanoTime()
-//    println("Elapsed time: " + (t1 - t0) / 1e6 + "ms")
     (result, t1 - t0)
   }
 
