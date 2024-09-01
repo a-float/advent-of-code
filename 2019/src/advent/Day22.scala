@@ -1,100 +1,47 @@
 package advent
 
-import scala.annotation.tailrec
-import scala.collection.mutable
-import scala.collection.mutable.ListBuffer
-
-object Day22 extends Day[Int] {
+object Day22 extends Day[BigInt] {
   override val day: Int = 22
 
-//  @tailrec
-//  private def gcd(a: Int, b: Int): Int = if b == 0 then a else gcd(b, a % b)
-//
-//  private def lcm(a: Int, b: Int): Int = a / gcd(a, b) * b
+  sealed trait Technique
+  case class Deal() extends Technique
+  case class Cut(n: BigInt) extends Technique
+  case class Increment(n: BigInt) extends Technique
 
-  override def part1(): Int = Utils.time {
-    val deckSize = 10007
-    val tracked = 2019
-    getSource.getLines.toList.foldLeft(tracked)((pos, shuffle) =>
-      shuffle match {
-        case "deal into new stack" => deckSize - pos - 1
-
-        case comm if comm.startsWith("cut") =>
-          val cut = comm.split(" ").last.toInt
-          val absCut = (deckSize + cut) % deckSize
-          if absCut > pos then pos + deckSize - absCut
-          else pos - absCut
-
-        case comm if comm.startsWith("deal with increment") =>
-          val inc = comm.split(" ").last.toInt
-          (pos * inc) % deckSize
-      }
-    )
+  val getTechniques = getSource.getLines.toList.map {
+    case "deal into new stack"          => Deal()
+    case comm if comm.startsWith("cut") => Cut(comm.split(" ").last.toInt)
+    case comm if comm.startsWith("deal with increment") =>
+      Increment(comm.split(" ").last.toInt)
   }
 
-  override def part2(): Int = Utils.time {
+  override def part1(): BigInt = {
+    val deckSize = 10007
+    val tracked = BigInt(2019)
+    getTechniques.foldLeft(tracked) {
+      case (pos, Deal())       => deckSize - pos - 1
+      case (pos, Cut(n))       => (pos - n + deckSize) % deckSize
+      case (pos, Increment(n)) => (pos * n) % deckSize
+    }
+  }
+
+  override def part2(): BigInt = {
     val deckSize = BigInt("119315717514047")
-    val trackedPos = BigInt(2020)
     val shuffles = BigInt("101741582076661")
+    val tracked = BigInt(2020)
 
-    def findPrev(trackedPos: BigInt): List[BigInt] =
-      getSource.getLines.toList.reverse.foldLeft(trackedPos :: Nil)(
-        (acc, shuffle) =>
-          val pos = acc.head
-          shuffle match {
-            case "deal into new stack" => deckSize - pos - 1 :: acc
+    def fix(x: BigInt) = (x % deckSize + deckSize) % deckSize
 
-            case comm if comm.startsWith("cut") =>
-              val cut = -comm.split(" ").last.toInt
-              val absCut = (deckSize + cut) % deckSize
-              if absCut > pos then pos + deckSize - absCut :: acc
-              else pos - absCut :: acc
+    def shuffle(start_seq: Tuple2[BigInt, BigInt]) =
+      getTechniques.foldLeft(start_seq) {
+        case (seq, Deal())       => (fix(seq._1 - seq._2), -seq._2)
+        case (seq, Cut(n))       => (fix(seq._1 + n * seq._2), seq._2)
+        case (seq, Increment(n)) => (seq._1, seq._2 * n.modInverse(deckSize))
+      }
 
-            case comm if comm.startsWith("deal with increment") =>
-              val inc = comm.split(" ").last.toInt
-              //            val (incMod, decMod) = (pos % inc, deckSize % inc)
-              val mult = LazyList
-                .from(0)
-                .dropWhile(m => (m * deckSize + pos) % inc != 0)
-                .head
-              //            println(s"$incMod, $decMod, mult is $mult")
-              (mult * deckSize + pos) / inc :: acc
-          }
-      )
-//    println(s"Result is ${findPrev(2020)}")
-    val l =
-      LazyList
-        .iterate(trackedPos :: Nil)(prev => findPrev(prev.head).reverse)
-        .drop(1)
-        .flatten
-        .take(1000)
-        .toList
-    println(l.groupBy(identity).collect { case (x, List(_, _, _*)) => x })
-    println(l)
-    println(l.size)
-    2
+    val (offset, inc) = shuffle((BigInt(0), BigInt(1)))
+    val finalInc = inc.modPow(shuffles, deckSize)
+    val finalOffset = offset * (1 - finalInc) * (1 - inc).modInverse(deckSize)
+    fix(finalOffset + (tracked * finalInc))
   }
 }
-
-//    val x = getSource.getLines.foldLeft(List.from(0 until deckSize))(
-//      (deck, shuffle) =>
-//        //        println(deck)
-//        shuffle match {
-//          case "deal into new stack" => deck.reverse
-//
-//          case comm if comm.startsWith("cut") =>
-//            val cut = comm.split(" ").last.toInt
-//            val absCut = if cut > 0 then cut else deck.size + cut
-//            deck.drop(absCut) ::: deck.take(absCut)
-//
-//          case comm if comm.startsWith("deal with increment") =>
-//            val inc = comm.split(" ").last.toInt
-//            val arr = Array.fill(deck.size)(-8)
-//            deck.indices.foreach(i => {
-//              arr((i * inc) % deck.size) = deck(i)
-//            })
-//            arr.toList
-//        }
-//    )
-//
-//    println(x)

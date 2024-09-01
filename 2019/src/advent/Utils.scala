@@ -5,6 +5,7 @@ import scala.language.implicitConversions
 object Vector3 {
   def zero: Vector3 = Vector3(0, 0, 0)
 }
+
 case class Vector3(x: Int, y: Int, z: Int) {
   def -(that: Vector3): Vector3 =
     Vector3(this.x - that.x, this.y - that.y, this.z - that.z)
@@ -36,6 +37,7 @@ case class Point(x: Int, y: Int) {
     case _           => false
   }
 }
+
 object Utils {
   def getMapBounds(map: Map[Point, Any]): Bounds = map.keys
     .foldLeft(Bounds(0, 0, 0, 0))((acc, point) =>
