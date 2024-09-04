@@ -25,6 +25,7 @@ object IntcodeComputer {
   def loadProgram(src: Source): IntcodeComputer =
     new IntcodeComputer(readProgramFromFile(src))
 }
+
 class IntcodeComputer(val program: Array[Long]) extends Cloneable {
   private var pc: Long = 0 // program counter
   private var rb: Long = 0 // relative base

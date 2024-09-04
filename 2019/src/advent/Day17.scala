@@ -104,7 +104,6 @@ object Day17 extends Day[Long] {
     val intcode = new IntcodeComputer(program)
     intcode.run(List.empty)
     val maze = intcode.outputs.map(_.toChar).mkString
-    //    println(s"main = $main\nA = $a\nB = $b\nC = $c")
     val input = splitPath(getPath(maze)).mkString("\n") + "\nn\n"
     intcode.run(input.toList.map(_.toLong))
     intcode.outputs.last
