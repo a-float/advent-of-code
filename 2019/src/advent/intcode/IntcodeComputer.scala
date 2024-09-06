@@ -83,7 +83,8 @@ class IntcodeComputer(val program: Array[Long]) extends Cloneable {
           pc += 2
         }
         case Halt() => {
-          return Success(_outputs.last)
+          return if (outputs.nonEmpty) Success(_outputs.last)
+          else Failure(s"Halt with no output")
         }
         case Crash() => {
           return Failure(s"Invalid opcode: ${readMemory(pc).toString}")
