@@ -6,6 +6,9 @@ object Vector3 {
   def zero: Vector3 = Vector3(0, 0, 0)
 }
 
+implicit val ordering: Ordering[Vector3] =
+  Ordering.by(v => (v.x, v.y, v.z))
+
 case class Vector3(x: Int, y: Int, z: Int) {
   def -(that: Vector3): Vector3 =
     Vector3(this.x - that.x, this.y - that.y, this.z - that.z)
