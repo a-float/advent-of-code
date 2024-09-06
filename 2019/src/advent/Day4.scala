@@ -14,7 +14,7 @@ object Day4 extends Day[Int] {
   }
 
   private def getPasswords(src: Source): Range.Inclusive = {
-    val ints = src.mkString.trim.split(" ").map(_.toInt)
+    val ints = src.mkString.trim.split("-").map(_.toInt)
     ints(0) to ints(1)
   }
 
