@@ -1,0 +1,38 @@
+name: Deploy AoC 2024 to mikr.us
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: executing remote ssh commands using ssh key
+        uses: appleboy/ssh-action@master
+        with:
+          port: 10292
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_KEY }}
+          script_stop: true
+          script: |
+            echo "Kill all the running PM2 actions"
+            /home/matt/.bun/bin/pm2 kill
+            rm -rf /home/matt/advent-of-code
+
+            echo "Clone repository"
+            git clone https://github.com/a-float/advent-of-code.git
+
+            echo "Jump to app folder"
+            cd /home/matt/advent-of-code/2024
+
+            echo "Install app dependencies"
+            /home/matt/.bun/bin/bun install
+
+            echo "Start"
+            /home/matt/.bun/bin/pm2 start /home/matt/ecosystem.config.js
+
