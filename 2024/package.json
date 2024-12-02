@@ -3,8 +3,10 @@
   "module": "server.ts",
   "type": "module",
   "scripts": {
-    "dev": "rm -rf public/out && bun run build && bun run --watch server.tsx",
-    "build": "bun build --minify src/* --outdir public/out"
+    "dev": "rm -rf public/out && bun run build:days && bun run --watch index.tsx",
+    "build:days": "bun build --minify src/* --outdir public/out",
+    "build:server": "bun build --compile --minify-whitespace --minify-syntax --target bun --outfile server ./index.tsx",
+    "build": "bun run build:days && bun run build:server"
   },
   "devDependencies": {
     "@types/bun": "latest"
