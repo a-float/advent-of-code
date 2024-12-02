@@ -12,6 +12,11 @@ const christmasEmojis = [
   '🎍', '🏠', '🔔', '🎀', '🦋', '🌍', '🎆'
 ];
 
+const subtitles: Record<number, string> = {
+  1: "Historian Hysteria",
+  2: "Red-Nosed Reports",
+};
+
 const isPast = (day: number) => {
   const date = new Date();
   date.setDate(day + 1);
@@ -33,24 +38,27 @@ export const IndexPage = (props: IndexPageProps) => (
         {Array.from({ length: 25 })
           .map((_, i) => i)
           .filter(isPast)
-          .map((i) => (
-            <a href={`/day/${i + 1}`}>
+          .map((day) => (
+            <a class="day-card-link" href={`/day/${day + 1}`}>
               <div class="day-card">
-                <span class="emoji">{christmasEmojis[i]}</span>
-                <span class="title is-4 m-0">Day {i + 1}</span>
+                <span class="emoji">{christmasEmojis[day]}</span>
+                <span class="title is-4 m-0">Day {day + 1}</span>
                 <div class="stars">
-                  {props.stars[i]?.[0] ? (
+                  {props.stars[day]?.[0] ? (
                     <span class="star filled">★</span>
                   ) : (
                     <span class="star">☆</span>
                   )}
-                  {props.stars[i]?.[1] ? (
+                  {props.stars[day]?.[1] ? (
                     <span class="star filled">★</span>
                   ) : (
                     <span class="star">☆</span>
                   )}
                 </div>
               </div>
+              {!!subtitles[day + 1] && (
+                <div class="subtitle is-size-6">{subtitles[day + 1]}</div>
+              )}
             </a>
           ))}
       </div>

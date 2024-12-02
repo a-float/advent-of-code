@@ -15,16 +15,27 @@ main {
   flex-direction: column;
 }
 
+@keyframes swing {
+  0% {
+    transform: rotate(20deg);
+  }
+  100% {
+    transform: rotate(-20deg);
+  }
+}
+
 .emoji {
   position: absolute;
   top: 0.75rem;
   left: 0.75rem;
-  font-size: 1.25rem;
+  font-size: 1.333rem;
+  animation: swing 1s infinite alternate ease-in-out;
 }
 
 .textarea {
   flex: 1;
   resize: none;
+  min-height: 400px !important;
 }
 
 .card-grid {
@@ -39,20 +50,23 @@ main {
   }
 }
 
-.day-card {
+.day-card-link {
   position: relative;
   padding: 1.5rem;
   padding-left: 3.25rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   border-radius: 0.5rem;
   border: 2px solid #333;
   transition: border 0.2s;
 }
 
-.day-card:hover {
+.day-card-link:hover {
   border: 2px solid var(--bulma-link-text);
+}
+
+.day-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .stars {
@@ -97,11 +111,15 @@ main {
 .results-section .result {
   border-radius: 0.5rem;
   border: 1px solid #353a46;
-  padding: 1rem;
+  padding: 1.5rem;
+}
+
+.results-section .result hr {
+  margin: 1.5rem 0;
 }
 
 .results-section .result p {
-  margin: 0.5rem 0;
+  margin-top: 0.5rem;
   font-size: 1.16em;
 }
 
@@ -113,7 +131,7 @@ main {
   color: black;
   font-size: 1.2em;
   position: absolute;
-  right: 4rem;
+  right: 3rem;
   top: 50%;
   transform: translateY(-50%);
 }
