@@ -17,7 +17,7 @@ for (let i = 0; i < 25; i++) {
     .catch(() => {});
 }
 
-new Elysia()
+const app = new Elysia()
   .use(html())
   .use(staticPlugin())
   .onError(({ error }) => console.log(error))
@@ -27,4 +27,6 @@ new Elysia()
   .get("/", async () => {
     return <IndexPage stars={stars} />;
   })
-  .listen(3000);
+  .listen(parseInt(process.env.PORT || "3000"));
+
+console.log(`🦊 Elysia running on port ${app.server?.port}...`);
