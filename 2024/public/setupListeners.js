@@ -7,6 +7,17 @@ document.addEventListener("DOMContentLoaded", function () {
   const timePart2 = document.getElementById("time-part-2");
   const btnPart2 = document.getElementById("run-part-2");
 
+  const day = inputArea.dataset?.day;
+  const dataStorageKey = day ? `data-day-${day}` : null;
+  const initialData = day ? localStorage.getItem(dataStorageKey) : "";
+  inputArea.value = initialData;
+
+  inputArea.addEventListener("input", (e) => {
+    const value = e.target.value;
+    if (!day) return;
+    localStorage.setItem(dataStorageKey, value);
+  });
+
   btnPart1?.addEventListener("click", async () => {
     if (!("part1" in window && typeof window.part1 === "function")) return;
     const input = inputArea.value;
