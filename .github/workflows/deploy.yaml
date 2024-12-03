@@ -20,8 +20,11 @@ jobs:
           key: ${{ secrets.VPS_KEY }}
           script_stop: true
           script: |
+            export BUN_INSTALL="$HOME/.bun"
+            export PATH="$BUN_INSTALL/bin:$PATH"
+
             echo "Kill all the running PM2 actions"
-            /home/matt/.bun/bin/pm2 kill
+            pm2 delete aoc24
             rm -rf /home/matt/advent-of-code
 
             echo "Clone repository"
@@ -31,10 +34,10 @@ jobs:
             cd /home/matt/advent-of-code/2024
 
             echo "Install app dependencies"
-            /home/matt/.bun/bin/bun install
+            bun install
 
             echo "Build"
-            /home/matt/.bun/bin/bun run build
+            bun run build
 
             echo "Start"
-            /home/matt/.bun/bin/pm2 start /home/matt/ecosystem.config.js
+            pm2 start ./server --name aoc24
