@@ -43,8 +43,10 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   const themeToggle = document.getElementById("theme-toggle");
-
+  const theme = localStorage.getItem("theme");
+  if (theme) themeToggle.checked = theme === "light";
   themeToggle.addEventListener("click", (e) => {
+    localStorage.setItem("theme", e.target.checked ? "light" : "dark");
     if (e.target.checked) {
       document.documentElement.setAttribute("data-theme", "light");
     } else {

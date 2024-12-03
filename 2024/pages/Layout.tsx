@@ -21,6 +21,12 @@ export const Layout = (props: LayoutProps) => (
         rel="stylesheet"
       ></link>
       <link rel="stylesheet" href="/public/styles.css" />
+      <script type="text/javascript">
+        {`
+        const theme = localStorage.getItem("theme") || "dark";
+        if(theme) document.documentElement.dataset.theme = theme;
+        `}
+      </script>
       <script>let FF_FOUC_FIX;</script>
     </head>
     <body>
