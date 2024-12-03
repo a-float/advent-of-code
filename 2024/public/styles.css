@@ -147,3 +147,12 @@ main {
 .back-link:hover {
   text-decoration: underline;
 }
+
+.theme-toggle {
+  color: black;
+  position: absolute;
+  right: 1rem;
+  top: 0.666rem;
+  font-size: 1.75em;
+  z-index: 999;
+}
