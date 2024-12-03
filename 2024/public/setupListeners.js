@@ -7,12 +7,12 @@ document.addEventListener("DOMContentLoaded", function () {
   const timePart2 = document.getElementById("time-part-2");
   const btnPart2 = document.getElementById("run-part-2");
 
-  const day = inputArea.dataset?.day;
+  const day = inputArea?.dataset?.day;
   const dataStorageKey = day ? `data-day-${day}` : null;
   const initialData = day ? localStorage.getItem(dataStorageKey) : "";
-  inputArea.value = initialData;
+  if (inputArea) inputArea.value = initialData;
 
-  inputArea.addEventListener("input", (e) => {
+  inputArea?.addEventListener("input", (e) => {
     const value = e.target.value;
     if (!day) return;
     localStorage.setItem(dataStorageKey, value);
@@ -40,5 +40,15 @@ document.addEventListener("DOMContentLoaded", function () {
     const end = performance.now();
     resultPart2.textContent = result;
     timePart2.textContent = (end - start).toFixed(2) + "ms";
+  });
+
+  const themeToggle = document.getElementById("theme-toggle");
+
+  themeToggle.addEventListener("click", (e) => {
+    if (e.target.checked) {
+      document.documentElement.setAttribute("data-theme", "light");
+    } else {
+      document.documentElement.setAttribute("data-theme", "dark");
+    }
   });
 });

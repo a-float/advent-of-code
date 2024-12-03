@@ -76,7 +76,6 @@ export const DayPage = (props: DayPageProps) => {
           window.part1 = part1;
           window.part2 = part2;`}
       </script>
-      <script src="/public/setupListeners.js" />
     </Layout>
   );
 };
