@@ -1,22 +1,9 @@
 import { Html } from "@elysiajs/html";
 import { Layout } from "./Layout";
+import { christmasEmojis, subtitles } from "./shared";
 
 type IndexPageProps = {
   stars: Record<number, [boolean, boolean]>;
-};
-
-// prettier-ignore
-const christmasEmojis = [
-  '🎄', '🎅', '🤶', '🎁', '❄️', '⛄', '🎉', '🌟', '🎶', '🎼', 
-  '🎊', '🎋', '🍪', '🥛', '🕯️', '🦌', '🧦', '🧸', '🎇', '🌨️',
-  '🎍', '🏠', '🔔', '🎀', '🦋', '🌍', '🎆'
-];
-
-const subtitles: Record<number, string> = {
-  1: "Historian Hysteria",
-  2: "Red-Nosed Reports",
-  3: "Mull It Over",
-  4: "Ceres Search",
 };
 
 const isPast = (day: number) => {
@@ -31,11 +18,11 @@ export const IndexPage = (props: IndexPageProps) => (
   <Layout>
     <section class="hero is-info">
       <div class="hero-body">
-        <p class="title">Advent of Code 2024</p>
-        <p class="subtitle">Made by me</p>
+        <h1 class="title">Advent of Code 2024</h1>
+        <h2 class="subtitle">coded with Typescript</h2>
       </div>
     </section>
-    <main class="container is-fullhd p-6">
+    <main class="container is-fullhd">
       <div class="card-grid">
         {Array.from({ length: 25 })
           .map((_, i) => i)

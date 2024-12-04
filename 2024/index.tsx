@@ -1,9 +1,9 @@
-import { Elysia, t } from "elysia";
+import { Elysia, error, t } from "elysia";
 import { html, Html } from "@elysiajs/html";
 import { staticPlugin } from "@elysiajs/static";
 import { IndexPage } from "./pages/IndexPage";
 import { DayPage } from "./pages/DayPage";
-import { join } from "path";
+import path, { join } from "path";
 
 const stars: Record<number, [boolean, boolean]> = {};
 for (let i = 0; i < 25; i++) {
@@ -20,10 +20,20 @@ for (let i = 0; i < 25; i++) {
 const app = new Elysia()
   .use(html())
   .use(staticPlugin())
-  .onError(({ error }) => console.log(error))
-  .get("/day/:day", ({ params: { day } }) => <DayPage day={day} />, {
-    params: t.Object({ day: t.Number({ minimum: 1, maximum: 25 }) }),
-  })
+  .get(
+    "/day/:day",
+    async ({ params: { day } }) => {
+      const dayName = String(day).padStart(2, "0");
+      const file = Bun.file(path.join("src", `day-${dayName}.ts`));
+      try {
+        const code = (await file.text()).split("\n").slice(0, -6).join("\n");
+        return <DayPage day={day} code={code} />;
+      } catch {
+        return `Will solve on ${new Date(`2024-12-${day}`).toDateString()}`;
+      }
+    },
+    { params: t.Object({ day: t.Number({ minimum: 1, maximum: 25 }) }) }
+  )
   .get("/", async () => {
     return <IndexPage stars={stars} />;
   })
