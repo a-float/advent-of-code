@@ -8,6 +8,13 @@ main {
   flex: 1;
   display: flex;
   flex-direction: column;
+  padding: 2rem 2rem 0;
+}
+
+@media (min-width: 1280px) {
+  main {
+    padding: 3rem 3rem 0;
+  }
 }
 
 .input-section {
@@ -155,4 +162,17 @@ main {
   top: 0.666rem;
   font-size: 1.75em;
   z-index: 999;
+}
+
+footer {
+  text-align: center;
+  color: #555;
+  padding: 1rem;
+}
+
+pre.solution {
+  margin-top: 2rem;
+  border-radius: 0.5rem;
+  border: 1px solid #353a46;
+  background: none;
 }
