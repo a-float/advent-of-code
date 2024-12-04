@@ -16,6 +16,7 @@ const subtitles: Record<number, string> = {
   1: "Historian Hysteria",
   2: "Red-Nosed Reports",
   3: "Mull It Over",
+  4: "Ceres Search",
 };
 
 const isPast = (day: number) => {
