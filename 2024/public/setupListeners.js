@@ -24,11 +24,15 @@ document.addEventListener("DOMContentLoaded", function () {
     const input = inputArea.value;
     const start = performance.now();
     btnPart1.classList.add("is-loading");
-    const result = await window.part1(input);
+    try {
+      const result = await window.part1(input);
+      const end = performance.now();
+      resultPart1.textContent = result;
+      timePart1.textContent = (end - start).toFixed(2) + "ms";
+    } catch (err) {
+      console.warn("Error executing part 1:", err);
+    }
     btnPart1.classList.remove("is-loading");
-    const end = performance.now();
-    resultPart1.textContent = result;
-    timePart1.textContent = (end - start).toFixed(2) + "ms";
   });
 
   btnPart2?.addEventListener("click", async () => {
@@ -36,11 +40,15 @@ document.addEventListener("DOMContentLoaded", function () {
     const input = inputArea.value;
     const start = performance.now();
     btnPart2.classList.add("is-loading");
-    const result = await window.part2(input);
+    try {
+      const result = await window.part2(input);
+      const end = performance.now();
+      resultPart2.textContent = result;
+      timePart2.textContent = (end - start).toFixed(2) + "ms";
+    } catch (err) {
+      console.warn("Error executing part 2:", err);
+    }
     btnPart2.classList.remove("is-loading");
-    const end = performance.now();
-    resultPart2.textContent = result;
-    timePart2.textContent = (end - start).toFixed(2) + "ms";
   });
 
   const themeToggle = document.getElementById("theme-toggle");
