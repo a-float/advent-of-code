@@ -5,6 +5,7 @@ import { IndexPage } from "./pages/IndexPage";
 import { DayPage } from "./pages/DayPage";
 import path, { join } from "path";
 
+const CODE_TRIM_START = `if (typeof require !== "undefined" && require.main === module) {`;
 const stars: Record<number, [boolean, boolean]> = {};
 for (let i = 0; i < 25; i++) {
   const filename = `day-${String(i + 1).padStart(2, "0")}.js`;
@@ -26,7 +27,8 @@ const app = new Elysia()
       const dayName = String(day).padStart(2, "0");
       const file = Bun.file(path.join("src", `day-${dayName}.ts`));
       try {
-        const code = (await file.text()).split("\n").slice(0, -6).join("\n");
+        let code = await file.text();
+        code = code.slice(0, code.indexOf(CODE_TRIM_START)).trim();
         return <DayPage day={day} code={code} />;
       } catch {
         return `Will solve on ${new Date(`2024-12-${day}`).toDateString()}`;
