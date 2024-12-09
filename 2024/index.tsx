@@ -15,7 +15,9 @@ for (let i = 0; i < 25; i++) {
     .then((text) => {
       stars[i] = [text.includes("part1"), text.includes("part2")];
     })
-    .catch(() => {});
+    .catch(() => {
+      console.log("Did not find file", file);
+    });
 }
 
 const app = new Elysia()

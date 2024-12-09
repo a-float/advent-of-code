@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "rm -rf public/out && bun run build:days && bun run --watch index.tsx",
-    "build:days": "bun build --minify src/* --outdir public/out",
+    "build:days": "bun build --minify src/* --outdir public/out --entry-naming '[name].[ext]'",
     "build:server": "bun build --compile --minify-whitespace --minify-syntax --target bun --outfile server ./index.tsx",
     "build": "bun run build:days && bun run build:server"
   },
