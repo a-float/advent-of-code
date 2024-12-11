@@ -16,6 +16,7 @@ export const subtitles: Record<number, string> = {
   8: "Resonant Collinearity",
   9: "Disk Fragmenter",
   10: "Hoof It",
+  11: "Plutonian Pebbles",
 };
 
 export const hljsThemes = {
