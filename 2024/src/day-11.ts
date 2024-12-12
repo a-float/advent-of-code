@@ -28,11 +28,11 @@ const fastBlink = (input: string, blinks: number): number => {
   return [...stoneMap.values()].reduce((acc, val) => acc + val, 0);
 };
 
-function part1(input: string) {
+export function part1(input: string) {
   return fastBlink(input, 25);
 }
 
-function part2(input: string) {
+export function part2(input: string) {
   return fastBlink(input, 75);
 }
 
