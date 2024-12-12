@@ -64,7 +64,7 @@ function calculateRating(map: TopoMap, head: string): number {
   return pathCount;
 }
 
-function part1(input: string) {
+export function part1(input: string) {
   const map = parseInput(input);
   return [...map.entries()]
     .filter(([key, node]) => node.height === 0)
@@ -72,7 +72,7 @@ function part1(input: string) {
     .reduce((a, b) => a + b, 0);
 }
 
-function part2(input: string) {
+export function part2(input: string) {
   const map = parseInput(input);
   return [...map.entries()]
     .filter(([key, node]) => node.height === 0)
