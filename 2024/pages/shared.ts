@@ -22,6 +22,7 @@ export const subtitles: Record<number, string> = {
   14: "Restroom Redoubt",
   15: "Warehouse Woes",
   16: "Reindeer Maze",
+  17: "Chronospatial Computer",
 };
 
 export const hljsThemes = {
