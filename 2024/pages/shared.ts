@@ -25,6 +25,7 @@ export const subtitles: Record<number, string> = {
   17: "Chronospatial Computer",
   18: "RAM Run",
   19: "Linen Layout",
+  20: "Race Condition",
 };
 
 export const hljsThemes = {
