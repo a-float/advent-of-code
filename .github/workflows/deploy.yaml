@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 2024/**
+      - .github/**
 
 jobs:
   deploy:
