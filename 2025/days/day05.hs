@@ -41,7 +41,6 @@ part2 rs =
       total = sum . map (\(a : b : _) -> b - a + 1) $ chunk 2 $ map getEdgeValue minEdges
    in total
 
-
 -- First approach, very messy. Hard to implement case on line 32.
 -- part2 rs =
 --   let flat = sort $ concat [[Open a, Close b] | (a, b) <- rs]

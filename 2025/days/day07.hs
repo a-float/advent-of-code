@@ -1,6 +1,6 @@
 {-# OPTIONS_GHC -Wno-x-partial #-}
 
-import Data.List (elemIndex, find, findIndices)
+import Data.List (elemIndex, elemIndices, find, findIndices)
 import Data.Map.Strict qualified as M
 import Data.Maybe (fromJust)
 import Data.Set qualified as S
@@ -9,7 +9,7 @@ data BeamState = BeamState {cols :: S.Set Int, splits :: Int} deriving (Show)
 
 beamReduce :: BeamState -> String -> BeamState
 beamReduce BeamState {cols, splits} xs =
-  let splitters = S.fromList $ findIndices (== '^') xs
+  let splitters = S.fromList $ elemIndices '^' xs
       collisions = S.intersection cols splitters
       newBeams = S.fromList $ concat [[c - 1, c + 1] | c <- S.toList collisions]
       oldBeams = S.difference cols collisions
@@ -29,7 +29,6 @@ quantumBounce :: Int -> [String] -> Int
 quantumBounce start ls = fst $ quantumBounce' start 0 M.empty
   where
     lsArray = ls -- Keep reference to original list
-    
     quantumBounce' :: Int -> Int -> Cache -> (Int, Cache)
     quantumBounce' b lineNum cache =
       case M.lookup (b, lineNum) cache of
@@ -38,11 +37,12 @@ quantumBounce start ls = fst $ quantumBounce' start 0 M.empty
           let collisionLines = dropWhile (\l -> (l !! b) /= '^') (drop lineNum lsArray)
               hit = take 1 collisionLines
               droppedLines = lineNum + length (drop lineNum lsArray) - length collisionLines + 1
-           in if null hit 
-              then (1, M.insert (b, lineNum) 1 cache)
-              else let (leftResult, cache1) = quantumBounce' (b - 1) droppedLines cache
-                       (rightResult, cache2) = quantumBounce' (b + 1) droppedLines cache1
-                       result = leftResult + rightResult
+           in if null hit
+                then (1, M.insert (b, lineNum) 1 cache)
+                else
+                  let (leftResult, cache1) = quantumBounce' (b - 1) droppedLines cache
+                      (rightResult, cache2) = quantumBounce' (b + 1) droppedLines cache1
+                      result = leftResult + rightResult
                    in (result, M.insert (b, lineNum) result cache2)
 
 main :: IO ()
