@@ -116,10 +116,14 @@ solveMachine2 m =
       smallest = minimum $ map sum solutions
    in smallest
 
+part1 :: [Machine] -> Int
+part1 machines = sum $ map solveMachine machines
+
+part2 :: [Machine] -> Int
+part2 machines = sum $ map solveMachine2 machines
+
 main :: IO ()
 main = do
   machines <- map lineToMachine . lines <$> readFile "./data/day10.txt"
-  print $ sum $ map solveMachine machines
-  let all = drop 0 $ zip [1 ..] (map solveMachine2 machines)
-  mapM_ print all
-  print $ sum (map snd all)
+  print $ part1 machines
+  print $ part2 machines

@@ -24,6 +24,7 @@ rectSize (a, b) (c, d) = abs (1 + (c - a)) * (1 + abs (d - b))
 getBounds :: [Point] -> (Point, Point)
 getBounds ps = ((minimum xs - 1, minimum ys - 1), (maximum xs + 1, maximum ys + 1)) where (xs, ys) = unzip ps
 
+getEdges :: (Ord a, Ord b, Enum a, Enum b) => [(a, b)] -> S.Set (a, b)
 getEdges ps =
   let pairs = zip ps $ drop 1 (cycle ps)
       makeSegment ((x1, y1), (x2, y2)) = [(x, y) | x <- [min x1 x2 .. max x1 x2], y <- [min y1 y2 .. max y1 y2]]
@@ -70,20 +71,16 @@ checkRect corners out rect =
       isOk = all (\p -> S.notMember p out) edge
    in (size, isOk)
 
-main :: IO ()
-main = do
-  let filename = "./data/day09.txt"
-  corners <- map (toPoint . map read . splitOn ',') . lines <$> readFile filename
-  let rects = sortBy (flip compare `on` uncurry rectSize) [(p1, p2) | p1 <- corners, p2 <- corners]
-  print $ uncurry rectSize $ head rects
-  let bounds = getBounds corners
-  let cornerSet = S.fromList corners
-  putStrLn $ "Bounds: " ++ show bounds
+part1 :: [Point] -> Int
+part1 corners = maximum $ rectSize <$> corners <*> corners
 
+part2 :: String -> [Point] -> IO Int
+part2 filename corners = do
+  let rects = sortBy (flip compare `on` uncurry rectSize) [(p1, p2) | p1 <- corners, p2 <- corners]
+  let bounds = getBounds corners
   let edges = getEdges corners
   let leftestCorner = minimumBy (compare `on` fst) corners
   let outIter = getOutside ((fst leftestCorner - 1, snd leftestCorner)) bounds edges
-  -- cache previous result instead of speeding up the bfs
   let outFile = filename ++ "_cache"
   out <- do
     fileExists <- doesFileExist outFile
@@ -96,19 +93,14 @@ main = do
         let result = fst $ head $ filter (\(_, toVisit) -> null toVisit) outIter
         writeFile outFile (show result)
         return result
-  -- drawFloor
-  --   ( \p -> case p of
-  --       _
-  --         | S.member p edges -> 'X'
-  --         | S.member p out -> 'o'
-  --         | otherwise -> '.'
-  --   )
-  --   points
-
-  putStrLn $ "Out calculated: " ++ (show $ S.take 1 out)
-  let rectsLenght = length rects
   let skipRects = dropWhile (\r -> uncurry rectSize r > 1748851332) rects
-  let (notOk, rest) = break (\(_, (size, ok)) -> ok) $ zip [1 ..] $ map (checkRect (corners) out) skipRects
-  mapM_ print notOk
+  let (_, rest) = break (\(_, (size, ok)) -> ok) $ zip [1 ..] $ map (checkRect (corners) out) skipRects
+  return $ fst $ snd $ head rest
 
-  putStrLn $ "Best: " ++ show (take 1 rest)
+main :: IO ()
+main = do
+  let filename = "./data/day09.txt"
+  corners <- map (toPoint . map read . splitOn ',') . lines <$> readFile filename
+  print $ part1 corners
+  result <- part2 filename corners
+  print result

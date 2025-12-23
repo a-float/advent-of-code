@@ -45,10 +45,13 @@ quantumBounce start ls = fst $ quantumBounce' start 0 M.empty
                       result = leftResult + rightResult
                    in (result, M.insert (b, lineNum) result cache2)
 
+part2 :: [String] -> Int
+part2 (fstLine : rest) =
+  let start = fromJust $ elemIndex 'S' fstLine
+   in quantumBounce start rest
+
 main :: IO ()
 main = do
   ls <- lines <$> readFile "./data/day07.txt"
   print $ part1 ls
-  let start = fromJust $ elemIndex 'S' (head ls)
-  let x = quantumBounce start (drop 1 ls)
-  print x
+  print $ part2 ls

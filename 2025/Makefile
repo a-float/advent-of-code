@@ -15,8 +15,8 @@ run:
 		echo "Example: make run N=00"; \
 		exit 1; \
 	fi
-	@if [ ! -f "days/day$(N).hs" ]; then \
-		echo "Error: days/day$(N).hs not found"; \
+	@if [ ! -f "src/day$(N).hs" ]; then \
+		echo "Error: src/day$(N).hs not found"; \
 		exit 1; \
 	fi
-	@runhaskell days/day$(N).hs
+	@runhaskell src/day$(N).hs

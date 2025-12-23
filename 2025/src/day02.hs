@@ -39,6 +39,5 @@ main = do
   s <- readFile "./data/day02.txt"
   let x = [1 .. 2]
   let ranges = makeRanges $ map unpack $ concat . map (splitOn (pack "-")) $ splitOn (pack ",") (pack s)
-  print ranges
   print $ part1 ranges
   print $ part2 ranges

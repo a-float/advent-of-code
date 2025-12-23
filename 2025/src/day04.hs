@@ -54,6 +54,5 @@ main = do
   ls <- lines <$> readFile "./data/day04.txt"
   let s = getSet ls
   let (w, h) = getDimensions ls
-  putStrLn "Solution:"
   print $ part1 w h s
   print $ part2 w h s

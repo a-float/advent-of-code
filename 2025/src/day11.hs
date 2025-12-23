@@ -42,9 +42,9 @@ part1 graph = dfs "you" "out" graph []
 
 part2 :: Graph -> Int
 part2 graph =
-  let svrToFft = dfs "svr" "fft" graph [] -- 7450
-      fftToDac = dfs "fft" "dac" graph [] -- 11216994
-      dacToOut = dfs "dac" "out" graph [] -- 3681
+  let svrToFft = dfs "svr" "fft" graph []
+      fftToDac = dfs "fft" "dac" graph []
+      dacToOut = dfs "dac" "out" graph []
       svrToDac = dfs "svr" "dac" graph []
       dacToFft = dfs "dac" "fft" graph []
       fftToOut = dfs "fft" "out" graph []

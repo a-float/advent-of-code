@@ -29,6 +29,7 @@ canFitPresentsInRegion (Region w h presents) = regionSize >= maxPresentsSize
     -- this is a very crude heuristic that works well enough
     maxPresentsSize = 9 * sum presents
 
+part1 :: [Region] -> Int
 part1 regions = length $ filter canFitPresentsInRegion regions
 
 main :: IO ()
