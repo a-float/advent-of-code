@@ -1,3 +1,5 @@
+//go:build day01
+
 package main
 
 import (
