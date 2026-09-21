@@ -1,12 +1,18 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+)
 
 func main() {
-	input := ""
+	input, err := os.ReadFile("./dayxx/input.txt")
+	if err != nil {
+		panic(err)
+	}
 
-	fmt.Println("Part 1:", part1(input))
-	fmt.Println("Part 2:", part2(input))
+	fmt.Println("Part 1:", part1(string(input)))
+	fmt.Println("Part 2:", part2(string(input)))
 }
 
 func part1(input string) int {
