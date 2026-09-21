@@ -1,11 +1,8 @@
-//go:build day01
-
 package main
 
 import (
 	"fmt"
 	"os"
-	"path/filepath"
 	"strconv"
 	"strings"
 )
@@ -17,8 +14,7 @@ func check(e error) {
 }
 
 func main() {
-	path := filepath.Join("../data/day01.txt")
-	dat, err := os.ReadFile(path)
+	dat, err := os.ReadFile("./day01/input.txt")
 	check(err)
 
 	lines := strings.Split(strings.TrimSpace(string(dat)), "\n")

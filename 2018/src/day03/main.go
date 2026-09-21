@@ -1,5 +1,3 @@
-//go:build day03
-
 package main
 
 import (
@@ -40,7 +38,7 @@ func readClaim(s string) Claim {
 }
 
 func main() {
-	path := filepath.Join("../data/day03.txt")
+	path := filepath.Join("./day03/input.txt")
 	dat, err := os.ReadFile(path)
 	if err != nil {
 		panic("File not found")

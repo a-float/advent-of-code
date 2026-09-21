@@ -1,5 +1,3 @@
-//go:build day02
-
 package main
 
 import (
@@ -76,7 +74,7 @@ func part2(lines []string) string {
 }
 
 func main() {
-	path := filepath.Join("../data/day02.txt")
+	path := filepath.Join("./day02/input.txt")
 	dat, err := os.ReadFile(path)
 	check(err)
 
