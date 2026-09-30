@@ -1,0 +1,24 @@
+package main
+
+import (
+	"fmt"
+	"os"
+)
+
+func main() {
+	input, err := os.ReadFile("./dayxx/input.txt")
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println("Part 1:", part1(string(input)))
+	fmt.Println("Part 2:", part2(string(input)))
+}
+
+func part1(input string) int {
+	return 0
+}
+
+func part2(input string) int {
+	return 0
+}
